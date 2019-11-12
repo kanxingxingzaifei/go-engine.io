@@ -212,6 +212,7 @@ func (s *session) serveHTTP(w http.ResponseWriter, r *http.Request) {
 
 func (s *session) upgrading(t string, conn base.Conn) {
 	// Read a ping from the client.
+	time.Sleep(1*time.Second)
 	err := conn.SetReadDeadline(time.Now().Add(s.params.PingTimeout))
 	if err != nil {
 		conn.Close()
