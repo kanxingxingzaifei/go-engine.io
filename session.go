@@ -212,7 +212,7 @@ func (s *session) serveHTTP(w http.ResponseWriter, r *http.Request) {
 
 func (s *session) upgrading(t string, conn base.Conn) {
 	// Read a ping from the client.
-	time.Sleep(1*time.Second)
+	time.Sleep(1 * time.Second)
 	err := conn.SetReadDeadline(time.Now().Add(s.params.PingTimeout))
 	if err != nil {
 		conn.Close()
@@ -303,5 +303,5 @@ func (s *session) upgrading(t string, conn base.Conn) {
 	s.upgradeLocker.Unlock()
 	p = nil
 
-	old.Close()
+	//old.Close()  暂时解决session连接被马上关闭的问题
 }
