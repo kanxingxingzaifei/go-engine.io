@@ -157,6 +157,7 @@ func (s *session) nextReader() (base.FrameType, base.PacketType, io.ReadCloser, 
 		ft, pt, r, err := conn.NextReader()
 		if err != nil {
 			if op, ok := err.(payload.Error); ok && op.Temporary() {
+				time.Sleep(time.Millisecond) //lx add at 20200608 内存占用过高
 				continue
 			}
 			return 0, 0, nil, err
@@ -173,6 +174,7 @@ func (s *session) nextWriter(ft base.FrameType, pt base.PacketType) (io.WriteClo
 		w, err := conn.NextWriter(ft, pt)
 		if err != nil {
 			if op, ok := err.(payload.Error); ok && op.Temporary() {
+				time.Sleep(time.Millisecond) //lx add at 20200608 内存占用过高
 				continue
 			}
 			return nil, err
